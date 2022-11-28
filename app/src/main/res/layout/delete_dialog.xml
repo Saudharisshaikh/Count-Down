@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00FFFFFF"
+    android:gravity="center_horizontal">
+
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/confirmationtext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dialog_top_gray"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="Confirmation"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="center"
+            android:background="@color/dark_gray"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/warning"
+                android:id="@+id/warning_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/contentText"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                app:layout_constraintTop_toBottomOf="@+id/warning_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:text="Are you sure you want to delete \n this countdown item ??"
+                />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="50dp"
+                app:layout_constraintTop_toBottomOf="@+id/contentText"
+                android:text="Cancel"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/contentText"
+                android:textColor="@color/black"
+                android:layout_marginEnd="15dp"
+                android:id="@+id/cancel_btn"
+                app:cornerRadius="6dp"
+                android:backgroundTint="@color/white"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/ok_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/contentText"
+                app:layout_constraintTop_toBottomOf="@+id/contentText"
+                app:layout_constraintStart_toEndOf="@+id/cancel_btn"
+                android:backgroundTint="@color/white"
+                android:text="OK"
+                android:textColor="@color/black"
+                app:cornerRadius="6dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".UI.Base.EditIndividualFragment">
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="40dp"
+                android:src="@drawable/main_blue_icon"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="30dp"
+                android:id="@+id/image_blue"
+                />
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="20dp"
+                android:id="@+id/back_click"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/back_click"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:text="Title"
+                android:id="@+id/title_label"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                />
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_constraintTop_toBottomOf="@+id/title_label"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="10dp"
+                android:hint="Title"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:layout_marginStart="20dp"
+                android:id="@+id/title"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/edit_text_background"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:text="Date"
+                android:id="@+id/date_label"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/date_label"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="10dp"
+                android:id="@+id/date"
+                android:gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/edit_text_background">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="dd/mm/yyyy"
+                    android:id="@+id/date_txt"
+                    android:textColorHint="@color/black"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="start"
+                    />
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:text="Time"
+                android:id="@+id/time_label"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                />
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_constraintTop_toBottomOf="@+id/time_label"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="10dp"
+                android:id="@+id/time"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/edit_text_background">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="hh:mm:am"
+                    android:id="@+id/time_txt"
+                    android:textColorHint="@color/black"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="start"
+                    />
+
+            </LinearLayout>
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:text="Time"
+                android:id="@+id/theme_label"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/theme_label"
+                android:id="@+id/theme"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:weightSum="6"
+                >
+
+                <View
+                    android:id="@+id/cv1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp"
+                    android:background="@drawable/color_selector_round"
+                    />
+
+                <View
+                    android:id="@+id/cv2"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp"
+                    android:background="#FF7b02"
+                    />
+
+                <View
+                    android:id="@+id/cv3"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:background="#FFFC02" />
+
+                <View
+                    android:id="@+id/cv4"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:background="#00FF28" />
+
+
+                <View
+                    android:id="@+id/cv5"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:background="#CC00FF" />
+
+
+                <View
+                    android:id="@+id/cv6"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp"
+                    android:background="@drawable/selected_color_right"
+                    />
+
+
+            </LinearLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/color_accent"
+                app:layout_constraintTop_toBottomOf="@+id/theme"
+                android:layout_marginTop="40dp"
+                android:padding="12dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:id="@+id/save_btn"
+                android:text="Save"
+                app:cornerRadius="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/save_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Delete Schedule"
+                android:id="@+id/delete_text"
+                android:textColor="@color/red_delete"
+                />
+
+
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:adSize="BANNER"
+                android:layout_marginBottom="10dp"
+                ads:adUnitId="ca-app-pub-3940256099942544/6300978111"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

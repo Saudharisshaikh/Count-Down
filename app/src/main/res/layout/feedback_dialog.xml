@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00FFFFFF"
+    android:gravity="center_horizontal">
+
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/round_dialog"
+        android:orientation="vertical">
+
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="vertical"
+                android:id="@+id/feedback_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/feedback"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/contentText"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                app:layout_constraintTop_toBottomOf="@+id/feedback_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:text="Thank you for your\nfeedback."
+                />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contentText"
+                android:text="Back"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/contentText"
+                android:textColor="@color/white"
+                android:layout_marginEnd="15dp"
+                android:id="@+id/back_btn"
+                app:cornerRadius="6dp"
+                android:backgroundTint="@color/color_accent"
+                />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</LinearLayout>

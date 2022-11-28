@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".UI.Base.EditCountdownitems">
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/edit"
+        android:layout_width="36dp"
+        android:layout_height="22dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:text="Edit"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="20dp"
+            android:id="@+id/back_click"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@+id/edit"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           android:layout_marginTop="80dp"
+           android:text="Flight"
+           android:id="@+id/Schedule_name_edit"
+           android:textSize="40sp"
+           android:textStyle="bold"
+           android:textColor="@color/white"
+           />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_layout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="500dp"
+            android:layout_height="500dp"
+            android:layout_centerHorizontal="true"
+            android:indeterminateOnly="false"
+            android:progressDrawable="@drawable/circle_progressbar"
+            android:rotation="-90"
+            tools:progress="40"
+
+            />
+
+        <TextView
+            android:id="@+id/month_digit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="180dp"
+            android:text="03"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/week_digit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="180dp"
+            android:layout_toEndOf="@+id/month_digit"
+            android:text="01"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/month_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/month_digit"
+            android:layout_marginStart="110dp"
+            android:text="months"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/week_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/week_digit"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/month_label"
+            android:text="week"
+            android:textColor="@color/white" />
+
+
+        <TextView
+            android:id="@+id/day_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/day_digit"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/week_label"
+            android:text="days"
+            android:textColor="@color/white" />
+
+
+        <TextView
+            android:id="@+id/hour_digit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/month_label"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="20dp"
+            android:text="02"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/minute_digit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/week_label"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/hour_digit"
+            android:text="01"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/second_digit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/day_label"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/minute_digit"
+            android:text="01"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/day_digit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="180dp"
+            android:layout_toEndOf="@+id/week_digit"
+            android:text="01"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/hour_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hour_digit"
+            android:layout_marginStart="110dp"
+            android:text="hours"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/minute_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/minute_digit"
+            android:layout_marginStart="7dp"
+            android:layout_toEndOf="@+id/month_label"
+            android:text="minutes"
+            android:textColor="@color/white" />
+
+
+        <TextView
+            android:id="@+id/seconds_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/second_digit"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/minute_label"
+            android:text="secs"
+            android:textColor="@color/white" />
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/progress_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Due June 18 2022"
+        android:id="@+id/due_date"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        />
+
+
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            android:text="progressbar"-->
+<!--            android:id="@+id/progress_btn"-->
+<!--            />-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
