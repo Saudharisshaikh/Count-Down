@@ -16,6 +16,7 @@ import android.widget.RatingBar;
 import com.example.countingdays.R;
 import com.example.countingdays.Utils.Utils;
 import com.example.countingdays.databinding.FragmentRatingBinding;
+import com.google.android.gms.ads.AdRequest;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,6 +79,10 @@ public class RatingFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        binding.adView.loadAd(adRequest);
 
         binding.appRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override

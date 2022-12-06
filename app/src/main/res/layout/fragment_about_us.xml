@@ -25,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="About Us"
+                android:fontFamily="@font/ubantu"
                 android:layout_gravity="center"
                 android:textColor="@color/white"
                 android:textSize="18sp"
@@ -36,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="15sp"
+                android:fontFamily="@font/ubantu"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:text="The Counting Days aims to help users keeps track of important life events and enhance user experiences. With its minmal UI and focus features,it intends to play the role of assistant in your life."
@@ -47,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="15sp"
+                android:fontFamily="@font/ubantu"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:text="We are open to more ideas, bugs fixes and feature improvements so don't hesitate to get in touch with us."
@@ -69,14 +72,13 @@
     </ScrollView>
 
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"/>
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 </RelativeLayout>

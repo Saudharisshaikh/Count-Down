@@ -112,7 +112,11 @@ public class HomeFragment extends Fragment {
 
                      AllScheduleAdapter allScheduleAdapter = new AllScheduleAdapter(getActivity(),schedules);
                      binding.homeScheduleRv.setAdapter(allScheduleAdapter);
+                   if(schedules.size()>0){
+                     binding.edit.setVisibility(View.VISIBLE);
+                   }
                  }
+
 
                 }
 

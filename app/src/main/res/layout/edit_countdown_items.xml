@@ -25,6 +25,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
+            style="@style/checkBoxStyle"
+
             android:id="@+id/check_countdown"
             android:layout_gravity="center"
             />
@@ -32,7 +34,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@drawable/rectangle_home_blue"
-        android:padding="15dp"
+        android:padding="17dp"
+        android:id="@+id/main_edit_layout"
         android:layout_weight="3"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
@@ -48,13 +51,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:text="15 Days"
+        android:fontFamily="@font/ubantu"
         android:id="@+id/days"
         android:textStyle="bold"
-        android:textSize="15sp"
         android:textColor="@color/white"
         />
 
-
+        <TextView
+            android:id="@+id/schdule_edit_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubantu"
+            android:text="Schedule Name"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -62,21 +74,25 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         android:text="June 28 2022"
+        android:fontFamily="@font/ubantu"
         android:id="@+id/schedule_date"
         app:layout_constraintTop_toBottomOf="@+id/days"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:textStyle="bold"
-        android:textSize="15sp"
         android:textColor="@color/white"
         />
+
+
+
+
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/schdule_edit_name"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/delete_icon"
+            android:layout_marginTop="17dp"
             android:id="@+id/edit_countdown_icon"
             />
 

@@ -36,6 +36,7 @@ public class ScheduleService  extends Service {
                 .setContentTitle("This is first Notifiation")
                 .setContentText(notiText)
                 .setSmallIcon(R.drawable.main_blue_icon)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setContentIntent(pendingIntent)
                 .build();
 
@@ -54,7 +55,7 @@ public class ScheduleService  extends Service {
             NotificationChannel notificationChannel = new NotificationChannel(
                     AppConstant.NOTIFICATION_CHANNEL_ID,
                     AppConstant.NOTIFICATION_CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_HIGH
+                    NotificationManager.IMPORTANCE_LOW
             );
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);

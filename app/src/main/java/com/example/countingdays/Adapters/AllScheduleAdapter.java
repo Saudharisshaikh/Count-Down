@@ -14,17 +14,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.countingdays.Model.Schedule;
 import com.example.countingdays.R;
 import com.example.countingdays.UI.Base.EditCountdownitems;
+import com.example.countingdays.Utils.AppConstant;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 
 public class AllScheduleAdapter extends RecyclerView.Adapter<AllScheduleAdapter.AllScheduleViewHolder> {
@@ -52,12 +58,59 @@ public class AllScheduleAdapter extends RecyclerView.Adapter<AllScheduleAdapter.
 
         Schedule schedule = scheduleList.get(position);
         LocalDateTime time = changeIntoDate(schedule.getDateTime());
-        final long duration = ChronoUnit.DAYS.between(LocalDate.now(), time);
+         long duration = ChronoUnit.DAYS.between(LocalDate.now(), time);
         holder.scheduleName.setText(schedule.getScheduleName());
-        holder.dateSchedule.setText(String.valueOf(time.getDayOfMonth()+"-"+time.getMonthValue()+"-"+time.getYear()));
-        String dayStrings = duration == 1 || duration == 0? "day":"days";
-        holder.daysRemain.setText(String.valueOf(duration+" "+dayStrings));
+        LocalDateTime timeNew = LocalDateTime.parse(schedule.getDateTime());
+        ZonedDateTime zdt = ZonedDateTime.of(timeNew, ZoneId.systemDefault());
+        SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM yyyy");
+       long datess = zdt.toInstant().toEpochMilli();
+        Date date = new Date(datess);
+        String dateText = df2.format(date);
+        holder.dateSchedule.setText(dateText);
+        //holder.dateSchedule.setText(String.valueOf(time.getDayOfMonth()+"-"+time.getMonthValue()+"-"+time.getYear()));
+        String dayStrings = duration == 1 || duration == 0? "day Left":"days Left";
+        String prceede = duration < 10 && duration > 0? "0":"";
+       // duration = duration < 0 ? 0 : duration;
 
+
+        if(duration < 0){
+
+           holder.daysRemain.setText("Completed");
+        }
+        else{
+            holder.daysRemain.setText(String.valueOf(prceede+duration+" "+dayStrings));
+        }
+
+
+        Log.d("--allScheduleAdapter", "onBindViewHolder: called");
+
+        switch (schedule.getScheduleColor()) {
+            case AppConstant.COLOR_PINK:
+                holder.constraintLayout.setBackgroundResource(R.drawable.rectangle_home_pink);
+                Log.d("--selectedColor", "onBindViewHolder: pink");
+                break;
+            case AppConstant.COLOR_ORANGE:
+                holder.constraintLayout.setBackgroundResource(R.drawable.rectangle_home_orange);
+                Log.d("--selectedColor", "onBindViewHolder: oorage");
+                break;
+            case AppConstant.COLOR_YELLOW:
+
+                holder.constraintLayout.setBackgroundResource(R.drawable.rectangle_home_yellow);
+                Log.d("--selectedColor", "onBindViewHolder: yellow");
+                break;
+            case AppConstant.COLOR_GREEN:
+                holder.constraintLayout.setBackgroundResource(R.drawable.rectangle_home_green);
+                Log.d("--selectedColor", "onBindViewHolder: green");
+                break;
+            case AppConstant.COLOR_PURPLE:
+                holder.constraintLayout.setBackgroundResource(R.drawable.rectangle_home_purple);
+                Log.d("--selectedColor", "onBindViewHolder: purple");
+                break;
+            case AppConstant.COLOR_BLUE:
+                holder.constraintLayout.setBackgroundResource(R.drawable.rectangle_home_blue);
+                Log.d("--selectedColor", "onBindViewHolder: accent");
+                break;
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +121,7 @@ public class AllScheduleAdapter extends RecyclerView.Adapter<AllScheduleAdapter.
                 bundle.putInt("scheduleId",schedule.getId());
                 bundle.putString("scheduleName",schedule.getScheduleName());
                 bundle.putString("scheduleDateTime",schedule.getDateTime());
+                bundle.putString("scheduleColor",schedule.getScheduleColor());
                 AppCompatActivity activity = (AppCompatActivity)view.getContext();
                 EditCountdownitems fragment = new EditCountdownitems();
                 fragment.setArguments(bundle);
@@ -94,7 +148,7 @@ public class AllScheduleAdapter extends RecyclerView.Adapter<AllScheduleAdapter.
     public static class AllScheduleViewHolder extends RecyclerView.ViewHolder {
 
         TextView daysRemain,dateSchedule,scheduleName;
-        Switch scheduleSwitch;
+        ConstraintLayout constraintLayout;
 
         public AllScheduleViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,8 +156,7 @@ public class AllScheduleAdapter extends RecyclerView.Adapter<AllScheduleAdapter.
             daysRemain = itemView.findViewById(R.id.days);
             dateSchedule = itemView.findViewById(R.id.schedule_date);
             scheduleName = itemView.findViewById(R.id.schedule_name);
-            scheduleSwitch = itemView.findViewById(R.id.schdule_toggle);
-
+            constraintLayout = itemView.findViewById(R.id.mainLayout);
         }
     }
 }

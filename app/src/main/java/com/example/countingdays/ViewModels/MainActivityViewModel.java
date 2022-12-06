@@ -22,4 +22,10 @@ public class MainActivityViewModel extends BaseViewModel{
         appRepository = AppRepository.getInstance(application.getApplicationContext());
         getScheduleList = appRepository.getCompleteSchedules();
     }
+
+    public void deleteSelectedSchedules(Schedule ... schedules){
+
+        appRepository.deleteSelectedSchedules(schedules);
+    }
+
 }

@@ -33,6 +33,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -41,11 +42,15 @@ import java.util.TimeZone;
  * Use the {@link EditIndividualFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EditIndividualFragment extends Fragment {
+public class EditIndividualFragment extends Fragment implements View.OnClickListener {
 
     String name = null;
     String dateTime = null;
     int id = 0;
+    String colorValue = AppConstant.COLOR_BLUE;
+
+    boolean isDateChange = false;
+    boolean isTimeChange = false;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -115,26 +120,73 @@ public class EditIndividualFragment extends Fragment {
 
          editIndividualViewModel = new ViewModelProvider(this).get(EditIndividualViewModel.class);
 
-
-
-
         Bundle bundle = this.getArguments();
-
 
         if(bundle != null){
             id = bundle.getInt("scheduleId");
             name = bundle.getString("scheduleName");
             dateTime = bundle.getString("scheduleDateTime");
+            colorValue = bundle.getString("scheduleColor");
             Log.d("--BundleHere", "onViewCreated: "+id+" "+dateTime+" "+name);
         }
 
         LocalDateTime time = changeIntoDate(dateTime);
 
+        h = time.getHour();
+        m = time.getMinute();
+        y = time.getYear();
+        mon = time.getMonthValue();
+        d = time.getDayOfMonth();
+
+        if(colorValue.equals(AppConstant.COLOR_PINK)){
+            binding.selectedColors.setBackgroundResource(R.color.selected_pink);
+        }
+        else if(colorValue.equals(AppConstant.COLOR_ORANGE)){
+            binding.selectedColors.setBackgroundResource(R.color.selected_orange);
+        }
+        else if(colorValue.equals(AppConstant.COLOR_YELLOW)){
+            binding.selectedColors.setBackgroundResource(R.color.selected_yellow);
+        }
+        else if(colorValue.equals(AppConstant.COLOR_GREEN)){
+            binding.selectedColors.setBackgroundResource(R.color.selected_green);
+        }
+        else if(colorValue.equals(AppConstant.COLOR_PURPLE)){
+            binding.selectedColors.setBackgroundResource(R.color.selected_purple);
+        }
+        else if(colorValue.equals(AppConstant.COLOR_BLUE)){
+            binding.selectedColors.setBackgroundResource(R.color.color_accent);
+        }
+
+        String amOrpm = time.getHour() < 12 ? "am" : "pm";
         binding.title.setText(name);
         binding.dateTxt.setText(String.valueOf(time.getDayOfMonth()+"-"+time.getMonthValue()+"-"+time.getYear()));
-        binding.timeTxt.setText(String.valueOf(time.getHour()+"-"+time.getMinute()));
+        binding.timeTxt.setText(String.valueOf(time.getHour()+"-"+time.getMinute()+" "+amOrpm));
+
 
         selectedDateAndTime = dateTime;
+
+        View cv1, cv2, cv3, cv4, cv5, cv6;
+
+        cv1 = binding.cv1;
+        cv2 = binding.cv2;
+        cv3 = binding.cv3;
+        cv4 = binding.cv4;
+        cv5 = binding.cv5;
+        cv6 = binding.cv6;
+
+
+        ArrayList<View> colorList = new ArrayList<>();
+
+        colorList.add(cv1);
+        colorList.add(cv2);
+        colorList.add(cv3);
+        colorList.add(cv4);
+        colorList.add(cv5);
+        colorList.add(cv6);
+
+        for (View views : colorList) {
+            views.setOnClickListener(this);
+        }
         setListeners();
     }
 
@@ -145,14 +197,18 @@ public class EditIndividualFragment extends Fragment {
 
     public void setListeners(){
 
+
         binding.backClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-
+                HomeFragment fragment = new HomeFragment();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, fragment);
+                ft.commit();
             }
         });
+
 
         binding.deleteText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,20 +228,38 @@ public class EditIndividualFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                String scheduleDateTime = "";
+
+                if(isDateChange && !isTimeChange){
+
+                    if(mon != 12) {
+                        mon++;
+                    }
+                   String selectDateAndTime = LocalDateTime.of(y, mon, d, h, m).toString();
+                   scheduleDateTime = selectDateAndTime;
+                }
+                else if(isTimeChange && isDateChange){
+
+                    scheduleDateTime = selectedDateAndTime;
+                }
+                else{
+                    scheduleDateTime = selectedDateAndTime;
+                }
+
                 String scheduleName = binding.title.getText().toString();
-                String scheduleDateTime = selectedDateAndTime;
+
 
                 Log.d("--dashBoard", "onClick: "+scheduleName);
 
                 if(ValidData(scheduleName,scheduleDateTime)){
 
-                    Schedule schedule = new Schedule(id,scheduleName,scheduleDateTime);
+                    Schedule schedule = new Schedule(id,scheduleName,scheduleDateTime,colorValue);
                     Log.d("--finalEdit", "onClick: "+schedule.getDateTime()+" "+schedule.getScheduleName());
                     editIndividualViewModel.updateSchedule(schedule);
                     sendToHomeFragment();
                 }
                 else{
-                    Toast.makeText(getActivity(), "Please fill fields.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please all fill fields.", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -197,6 +271,8 @@ public class EditIndividualFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
+
+                isDateChange = true;
 
                 Calendar cl = Calendar.getInstance();
 
@@ -244,6 +320,8 @@ public class EditIndividualFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                isTimeChange = true;
+
                 LocalDateTime time = LocalDateTime.parse(dateTime);
                 int hourValue = time.getHour();
                 int minuteValue = time.getMinute();
@@ -266,6 +344,7 @@ public class EditIndividualFragment extends Fragment {
 
                                 String sss = y+"-"+mon+"-"+d+" "+h+":"+m+":"+"00";
 
+                                Log.d("--currentDate", "onTimeSet: "+sss);
                                 // convert to Date string
                                 selectedDateAndTime = LocalDateTime.of(y, mon, d, h, m).toString();
 
@@ -273,7 +352,11 @@ public class EditIndividualFragment extends Fragment {
                                 LocalDateTime time = LocalDateTime.parse(selectedDateAndTime);
                                 Log.d("--getDates", "onTimeSet: "+time);
 
-                                binding.timeTxt.setText(i + ":" + i1);
+                                String prceedeHour = h < 10 ? "0": "";
+                                String preceedeMinute = m < 10 ? "0" : "";
+                                String amOrpm = h < 12 ? "am" :"pm";
+
+                                binding.timeTxt.setText(prceedeHour+i + ":" +preceedeMinute+i1+" "+amOrpm);
                             } }, hourValue, minuteValue, false);
 
 
@@ -301,4 +384,49 @@ public class EditIndividualFragment extends Fragment {
         return !scheduleName.equals("") && !scheduleDateTime.equals("");
     }
 
-}
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+                    case R.id.cv1:
+                        colorValue = AppConstant.COLOR_PINK;
+                        binding.selectedColors.setVisibility(View.VISIBLE);
+                        binding.selectedColors.setBackgroundResource(R.color.selected_pink);
+                        break;
+
+                    case R.id.cv2:
+                        colorValue   = AppConstant.COLOR_ORANGE;
+                        binding.selectedColors.setVisibility(View.VISIBLE);
+                        binding.selectedColors.setBackgroundResource(R.color.selected_orange);
+                        break;
+
+
+                    case R.id.cv3:
+                        colorValue   = AppConstant.COLOR_YELLOW;
+                        binding.selectedColors.setVisibility(View.VISIBLE);
+                        binding.selectedColors.setBackgroundResource(R.color.selected_yellow);
+                        break;
+
+
+                    case R.id.cv4:
+                        colorValue   = AppConstant.COLOR_GREEN;
+                        binding.selectedColors.setVisibility(View.VISIBLE);
+                        binding.selectedColors.setBackgroundResource(R.color.selected_green);
+                        break;
+
+                    case R.id.cv5:
+                        colorValue   = AppConstant.COLOR_PURPLE;
+                        binding.selectedColors.setVisibility(View.VISIBLE);
+                        binding.selectedColors.setBackgroundResource(R.color.selected_purple);
+                        break;
+
+                    case R.id.cv6:
+                        colorValue   = AppConstant.COLOR_BLUE;
+                        binding.selectedColors.setVisibility(View.VISIBLE);
+                        binding.selectedColors.setBackgroundResource(R.color.color_accent);
+                        break;
+                }
+
+
+            }
+    }

@@ -8,6 +8,14 @@ public class AppConstant {
     public static final String NOTIFICATION_CHANNEL_NAME = "schedule_channel";
     public static final String NOTIFICATION_CHANNEL_ID = "schedule_channel_id";
 
+    public static final String COLOR_PINK = "pink";
+    public static final String COLOR_ORANGE = "orange";
+    public static final String COLOR_YELLOW = "yellow";
+    public static final String COLOR_GREEN = "green";
+    public static final String COLOR_PURPLE = "purple";
+    public static final String COLOR_BLUE = "blue";
+
+
 
     public static final int SERVICE_REQUEST_CODE = 103;
 }

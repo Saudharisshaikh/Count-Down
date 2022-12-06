@@ -111,10 +111,16 @@ public class EditCountdownFragment extends Fragment implements DeleteCountDowns 
         editCountDownViewModel = new ViewModelProvider(this).get(EditCountDownViewModel.class);
 
 
+
             if(schedules != null){
 
                 EditIndividualAdapter editIndividualAdapter = new EditIndividualAdapter(getActivity(),schedules,this);
                 binding.editCountdownRv.setAdapter(editIndividualAdapter);
+
+                if(schedules.size() > 0){
+
+                  binding.deleteCountdown.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -144,10 +150,6 @@ public class EditCountdownFragment extends Fragment implements DeleteCountDowns 
                 Utils.showSuccessDialog(getActivity(),()->{
 
                     Schedule[] schedule = new Schedule[selectedScheduleList.size()];
-//                    Schedule[] schedules1 = new Schedule[selectedScheduleList.size()];
-//                    Log.d("--done", "onClick: Dialog Close"+schedules1[0].getScheduleName());
-//                    selectedScheduleList.toArray(schedules1);
-
                     for(int i = 0; i<selectedScheduleList.size(); i++){
 
                         schedule[i] = selectedScheduleList.get(i);
@@ -155,7 +157,20 @@ public class EditCountdownFragment extends Fragment implements DeleteCountDowns 
 
                     Log.d("--getSchedulesList", "onClick: "+schedule[0].getScheduleName());
                     editCountDownViewModel.deleteSelectedSchedules(schedule);
-                });
+                    homeViewModel.getScheduleList.observe(getViewLifecycleOwner(),schedules -> {
+
+
+                        if(schedules.size() > 0){
+                         binding.deleteCountdown.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            binding.deleteCountdown.setVisibility(View.GONE);
+                        }
+                    });
+
+
+
+                    });
 
             }
         });

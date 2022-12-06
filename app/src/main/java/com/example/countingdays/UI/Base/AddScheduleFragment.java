@@ -56,7 +56,8 @@ public class AddScheduleFragment extends Fragment implements View.OnClickListene
     FragmentAddScheduleBinding binding;
     private final Calendar calendar = Calendar.getInstance();
     AddScheduleViewModel addScheduleViewModel;
-    
+    String colorValue = AppConstant.COLOR_BLUE;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -124,17 +125,18 @@ public class AddScheduleFragment extends Fragment implements View.OnClickListene
 
                 if(ValidData(scheduleName,scheduleDateTime)){
 
-                    Schedule schedule = new Schedule(scheduleName,scheduleDateTime);
+                    Schedule schedule = new Schedule(scheduleName,scheduleDateTime,colorValue);
                     addScheduleViewModel.insertNewSchedule(schedule);
                     sendToHomeFragment();
                 }
                 else{
-                    Toast.makeText(getActivity(), "Please fill fields.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please fill all fields.", Toast.LENGTH_SHORT).show();
                 }
 
 
             }
         });
+
 
 
 
@@ -204,27 +206,11 @@ public class AddScheduleFragment extends Fragment implements View.OnClickListene
                                 LocalDateTime time = LocalDateTime.parse(selectedDateAndTime);
                                 Log.d("--getDates", "onTimeSet: "+time);
 
+                                String prceedeHour = h < 10 ? "0": "";
+                                String preceedeMinute = m < 10 ? "0" : "";
+                                String amOrpm = h < 12 ? "am" :"pm";
 
-                                //Log.d("--beforeDate", "onTimeSet: "+mon+"  "+time.getYear()+" "+time.getMonthValue()+"  "+time.getDayOfMonth()+" "+time.getHour()+" "+time.getMinute());
-                                //Log.d("--after", "onTimeSet: "+s+"  "+time);
-
-
-//                                DateFormat mSDF = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-//                                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-//                                String date = null;
-//                                try {
-//                                    date = mSDF.format(formatter.parse(sss));
-//                                    Date date1 = formatter.parse(date);
-//                                    Log.d("--timeinDataBase", "onViewCreated:"+date+"  "+date1.getYear()+" "+date1.getHours()+"  "+date1.getMinutes());
-//                                } catch (ParseException e) {
-//                                    e.printStackTrace();
-//                                    Log.d("--logDate", "onTimeSet: exception");
-//                                }
-//                                //Date date = new Date(y,mon,d,h,m);
-//                                //String newstring = new SimpleDateFormat("yyyy-MM-DD HH:MM").format(date);
-
-
-                                binding.timeTxt.setText(i + ":" + i1);
+                                binding.timeTxt.setText(prceedeHour+i + ":"+preceedeMinute + i1+" "+amOrpm);
                             } }, hour, minute, false);
 
 
@@ -277,7 +263,7 @@ public class AddScheduleFragment extends Fragment implements View.OnClickListene
 
     private boolean ValidData(String scheduleName, String scheduleDateTime) {
         Log.d("--isValidData", "ValidData: "+scheduleName+" "+selectedDateAndTime);
-        return !scheduleName.equals("") && !scheduleDateTime.equals("");
+       return  scheduleName != null && scheduleDateTime != null && !scheduleName.equals("") && !scheduleDateTime.equals("");
     }
 
 
@@ -285,9 +271,44 @@ public class AddScheduleFragment extends Fragment implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.cv1:
+            colorValue = AppConstant.COLOR_PINK;
+            binding.selectedColors.setVisibility(View.VISIBLE);
+            binding.selectedColors.setBackgroundResource(R.color.selected_pink);
+            break;
 
+            case R.id.cv2:
+           colorValue   = AppConstant.COLOR_ORANGE;
+                binding.selectedColors.setVisibility(View.VISIBLE);
+                binding.selectedColors.setBackgroundResource(R.color.selected_orange);
+           break;
+
+
+            case R.id.cv3:
+                colorValue   = AppConstant.COLOR_YELLOW;
+                binding.selectedColors.setVisibility(View.VISIBLE);
+                binding.selectedColors.setBackgroundResource(R.color.selected_yellow);
+                break;
+
+
+            case R.id.cv4:
+                colorValue   = AppConstant.COLOR_GREEN;
+                binding.selectedColors.setVisibility(View.VISIBLE);
+                binding.selectedColors.setBackgroundResource(R.color.selected_green);
+                break;
+
+            case R.id.cv5:
+                colorValue   = AppConstant.COLOR_PURPLE;
+                binding.selectedColors.setVisibility(View.VISIBLE);
+                binding.selectedColors.setBackgroundResource(R.color.selected_purple);
+                break;
+
+            case R.id.cv6:
+                colorValue   = AppConstant.COLOR_BLUE;
+                binding.selectedColors.setVisibility(View.VISIBLE);
+                binding.selectedColors.setBackgroundResource(R.color.color_accent);
                 break;
         }
+
     }
 
 

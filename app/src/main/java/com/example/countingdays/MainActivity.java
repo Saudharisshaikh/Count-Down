@@ -7,17 +7,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,7 +61,11 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout showNavigaton;
     boolean isActivityStop;
     AlarmManager alarmManager ;
+    Fragment currentFragment;
 
+    private Fragment lastFragmentInQueue = null;
+
+    MainActivityViewModel mainActivityViewModel;
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -93,31 +101,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        createNotificationChannel();
 
-        Intent intent = new Intent(this,ScheduleService.class);
-        intent.putExtra("notiText","dash dash");
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O){
-            Log.d("--Oreo", "onCreate: ");
-            startForegroundService(intent);
-        }
-        else{
-            Log.d("--Oreo2", "onCreate: ");
-            startService(intent);
-        }
 
-        List<Schedule> myScheduleList =new ArrayList<>();
-        MainActivityViewModel mainActivityViewModel = new  ViewModelProvider(this).get(MainActivityViewModel.class);
-        mainActivityViewModel.getScheduleList.observe(this,
-                schedules -> {
 
-                     setAlarm(schedules);
-                     for(Schedule schedule:schedules){
-                        Log.d("--MainSchedules", "startScheduleService: "+schedule.getScheduleName());
+         mainActivityViewModel = new  ViewModelProvider(this).get(MainActivityViewModel.class);
 
-                     }
-                }
-        );
+
+//         try{
+//             setViewModelData();
+//         }
+//         catch (Exception e){
+//             Log.d("--exceptionModel", "onCreate: ");
+//         }
+
 
 
         drawerLayout = findViewById(R.id.drawerlayout);
@@ -128,11 +124,6 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
         setSupportActionBar(toolbar);
         setFragment(R.id.home,null);
-
-
-
-
-      //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -146,39 +137,44 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void setAlarm(List<Schedule> schedules) {
+    public void setViewModelData(){
 
+        ArrayList<Schedule> deleteSchedules = new ArrayList<>();
 
+        mainActivityViewModel.getScheduleList.observe(this,
+                schedules -> {
 
-        for(Schedule schedule:schedules){
-            LocalDateTime time = LocalDateTime.parse(schedule.getDateTime());
+                    LocalDateTime nowTime = LocalDateTime.now();
+                    for (Schedule schedule : schedules) {
 
-            final Date fromDate = Date.from(time.toInstant(ZoneOffset.UTC));
-            Calendar calendar = getInstance();
+                        LocalDateTime time = LocalDateTime.parse(schedule.getDateTime());
+                        ZonedDateTime zdt = ZonedDateTime.of(time, ZoneId.systemDefault());
+                        long datess = zdt.toInstant().toEpochMilli();
+                        Date dateS = new Date(datess);
+                        Date dateN = new Date();
+                        if (time.isBefore(LocalDateTime.now())) {
 
-            calendar.set(Calendar.HOUR, time.getHour());
-            calendar.set(Calendar.MINUTE,time.getMinute());
-            calendar.set(Calendar.SECOND,0);
-            calendar.set(calendar.MILLISECOND,0);
+                            deleteSchedules.add(schedule);
+                            Log.d("--previousDate ", "setViewModelData: " + schedule.getDateTime() + "     "+dateS+"  "+dateN);
+                        }
 
+                    }
+                    if (schedules.size() > 0){
+                        Schedule[] newDelteList = new Schedule[deleteSchedules.size()];
 
+                    for (int i = 0; i < deleteSchedules.size()-1; i++) {
 
+                        newDelteList[i] = schedules.get(i);
+                        Log.d("--inArray", "setViewModelData: " + newDelteList[i]);
+                    }
 
-
-//            alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-//        Intent intent = new Intent(this, AlarmBroadcastReceiver.class);
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0,intent,0);
-//        alarmManager.setRepeating(
-//            AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),
-//            AlarmManager.INTERVAL_FIFTEEN_MINUTES,pendingIntent
-//
-//        );
+                    mainActivityViewModel.deleteSelectedSchedules(newDelteList);
+                }
         }
+        );
     }
-
-
-
 
     public void setFragment(@IdRes int id, Bundle bundle) {
 
@@ -216,11 +212,27 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
+
+    @Override
+    public void onBackPressed() {
+        if(!(currentFragment instanceof  HomeFragment)){
+
+            Log.d("--backPress", "onBackPressed: ");
+            setFragment(R.id.home,null);
+            return;
+        }
+        super.onBackPressed();
+    }
+
     public void handleFragmentTransaction(Fragment fragment, Bundle bundle) {
+
+
 
         if (fragment != null && !isActivityStop) {
             if (bundle != null)
                 fragment.setArguments(bundle);
+            lastFragmentInQueue = fragment;
+            currentFragment = fragment;
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame, fragment);
             ft.commit();
@@ -232,6 +244,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         isActivityStop = false;
+        if(lastFragmentInQueue != null){
+            handleFragmentTransaction(lastFragmentInQueue,null);
+        }
     }
 
     @Override

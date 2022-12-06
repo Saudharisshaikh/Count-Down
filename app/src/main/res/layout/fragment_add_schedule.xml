@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UI.Base.AddScheduleFragment">
 
@@ -48,6 +49,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:text="Title"
+                android:fontFamily="@font/ubantu"
                 android:id="@+id/title_label"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -61,7 +63,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/title_label"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="10dp"
-                android:hint="Flight"
+                android:hint="Title"
+                android:fontFamily="@font/ubantu"
+                android:singleLine="true"
                 android:paddingLeft="10dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
@@ -80,6 +84,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:text="Date"
+                android:fontFamily="@font/ubantu"
                 android:id="@+id/date_label"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -104,6 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="dd/mm/yyyy"
+                    android:fontFamily="@font/ubantu"
                     android:id="@+id/date_txt"
                     android:textColorHint="@color/black"
                     android:textColor="@color/black"
@@ -123,6 +129,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:text="Time"
+                android:fontFamily="@font/ubantu"
                 android:id="@+id/time_label"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -152,6 +159,7 @@
                     android:layout_height="wrap_content"
                     android:hint="hh:mm:am"
                     android:id="@+id/time_txt"
+                    android:fontFamily="@font/ubantu"
                     android:textColorHint="@color/black"
                     android:textColor="@color/black"
                     android:layout_marginStart="10dp"
@@ -169,8 +177,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/time"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/ubantu"
                 android:layout_marginStart="20dp"
-                android:text="Time"
+                android:text="Theme"
                 android:id="@+id/theme_label"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -204,7 +213,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="40dp"
-                    android:background="#FF7b02"
+                    android:background="@drawable/theme_rectangle_orange"
                     />
 
                 <View
@@ -212,14 +221,14 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="#FFFC02" />
+                    android:background="@drawable/theme_rectangle_yellow" />
 
                 <View
                     android:id="@+id/cv4"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="#00FF28" />
+                    android:background="@drawable/theme_rectangle_green" />
 
 
                 <View
@@ -227,7 +236,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:background="#CC00FF" />
+                    android:background="@drawable/theme_rectangle_purple" />
 
 
                 <View
@@ -242,13 +251,29 @@
             </LinearLayout>
 
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:id="@+id/selected_colors"
+            android:background="@color/color_accent"
+            app:layout_constraintTop_toBottomOf="@+id/theme"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal" />
+
+
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:backgroundTint="@color/color_accent"
-                app:layout_constraintTop_toBottomOf="@+id/theme"
+                app:layout_constraintTop_toBottomOf="@+id/selected_colors"
                 android:layout_marginTop="40dp"
                 app:cornerRadius="8dp"
+                android:fontFamily="@font/ubantu"
                 android:padding="12dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"

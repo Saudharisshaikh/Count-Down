@@ -5,7 +5,7 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#161616</color>
     <color name="white">#FFFFFFFF</color>
     <color name="color_accent">#0203B3</color>
     <color name="color_accentDark">#2D2D32</color>
@@ -13,6 +13,13 @@
     <color name="red_delete">#BD1306</color>
     <color name="light_grey">#D5D5D5</color>
     <color name="yellow_rating">#E4ED1A</color>
+
+    <color name="selected_pink">#FF0063</color>
+    <color name="selected_orange">#FF7b02</color>
+    <color name="selected_yellow">#FFFC02</color>
+    <color name="selected_green">#00FF28</color>
+    <color name="selected_purple">#CC00FF</color>
+
 
 
 </resources>

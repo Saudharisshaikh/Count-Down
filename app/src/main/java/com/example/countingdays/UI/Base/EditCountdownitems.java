@@ -1,5 +1,6 @@
 package com.example.countingdays.UI.Base;
 
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -17,10 +18,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.countingdays.R;
+import com.example.countingdays.Utils.AppConstant;
 import com.example.countingdays.databinding.FragmentEditCountdownitemsBinding;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -90,10 +97,12 @@ public class EditCountdownitems extends Fragment {
         int id = 0;
         String name = null;
         String dateTime = null;
+        String scheduleColor = null;
         if(bundle != null){
              id = bundle.getInt("scheduleId");
              name = bundle.getString("scheduleName");
              dateTime = bundle.getString("scheduleDateTime");
+             scheduleColor = bundle.getString("scheduleColor");
             Log.d("--BundleHere", "onViewCreated: "+id+" "+dateTime+" "+name);
         }
 
@@ -128,6 +137,7 @@ public class EditCountdownitems extends Fragment {
         int finalId = id;
         String finalName = name;
         String finalDateTime = dateTime;
+        String finalColor = scheduleColor;
         binding.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,7 +145,7 @@ public class EditCountdownitems extends Fragment {
                 bundle.putInt("scheduleId", finalId);
                 bundle.putString("scheduleName", finalName);
                 bundle.putString("scheduleDateTime", finalDateTime);
-
+                bundle.putString("scheduleColor",finalColor);
                 EditIndividualFragment fragment = new EditIndividualFragment();
                 fragment.setArguments(bundle);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -150,6 +160,8 @@ public class EditCountdownitems extends Fragment {
 
         long minutesRemain = ChronoUnit.MINUTES.between(LocalDateTime.now(),time);
 
+        long latterUseMint = ChronoUnit.MINUTES.between(LocalDateTime.now(),time);
+
         Log.d("--minutesRemain", "onViewCreated: "+minutesRemain);
 
         long monthcountdown = (int)(minutesRemain/43200);
@@ -161,7 +173,13 @@ public class EditCountdownitems extends Fragment {
         long hourcountdown = (int)(minutesRemain/60);
         minutesRemain = (int)(minutesRemain%60);
 
-        String monthExtra = monthcountdown < 10?"0":"";
+        monthcountdown = monthcountdown < 0?0 :monthcountdown;
+        weekcountdown  = weekcountdown  < 0?0 :weekcountdown;
+        daycountdown = daycountdown <0 ? 0 :daycountdown;
+        hourcountdown = hourcountdown < 0 ? 0 :hourcountdown;
+        minutesRemain = minutesRemain < 0 ? 0:minutesRemain;
+
+        String monthExtra = monthcountdown < 10 ?"0":"";
         String weekExtra = weekcountdown < 10?"0":"";
         String dayExtra   = daycountdown <10 ? "0":"";
         String hourExtra = hourcountdown < 10 ? "0":"";
@@ -176,21 +194,93 @@ public class EditCountdownitems extends Fragment {
         binding.hourDigit.setText(String.valueOf(hourExtra+hourcountdown));
         binding.minuteDigit.setText(String.valueOf(minuteExtra+minutesRemain));
 
+        String checkingColor = finalColor == null ? AppConstant.COLOR_BLUE:finalColor;
 
-        binding.dueDate.setText("Due "+time.getDayOfMonth()+"-"+time.getMonthValue()+"-"+time.getYear());
+//        Random random  = new Random();
+//        int myRandInt = random.nextInt(100);
+        Log.d("--currentMinute", "onViewCreated:"+minutesRemain);
+        long myRandInt = 0;
+        if(latterUseMint >= 262080){
+            myRandInt = 15;
+        }
+        else if(latterUseMint >= 172800){
+            myRandInt = 25;
+        }
+        else if(latterUseMint >= 43200){
+            myRandInt = 50;
+        }
+        else if(latterUseMint >= 21600){
+            myRandInt = 60;
+        }
+        else if(latterUseMint >= 10080){
+            myRandInt = 70;
+        }
+
+        else if(latterUseMint >= 4320){
+            myRandInt = 80;
+        }
+        else if(latterUseMint >= 1440){
+            myRandInt = 90;
+        }
+        else if(latterUseMint < 1440){
+            myRandInt = 95;
+        }
+        else if(latterUseMint == 0){
+            myRandInt = 100;
+        }
+        else{
+            myRandInt = 100;
+        }
+
+        Log.d("--bar", "onCreate: "+myRandInt);
+        if(checkingColor.equals(AppConstant.COLOR_PINK)){
+
+            Drawable drawable = getResources().getDrawable(R.drawable.circle_progress_pink);
+            binding.progressbar.setProgressDrawable(drawable);
+            binding.progressbar.setProgress((int) myRandInt);
+        }
+        else if(checkingColor.equals(AppConstant.COLOR_ORANGE)){
+            Drawable drawable = getResources().getDrawable(R.drawable.circle_progress_orange);
+            binding.progressbar.setProgressDrawable(drawable);
+            binding.progressbar.setProgress((int) myRandInt);
+        }
+
+        else if(checkingColor.equals(AppConstant.COLOR_YELLOW)){
+            Drawable drawable = getResources().getDrawable(R.drawable.circle_progress_yellow);
+            binding.progressbar.setProgressDrawable(drawable);
+            binding.progressbar.setProgress((int) myRandInt);
+        }
+
+        else if(checkingColor.equals(AppConstant.COLOR_GREEN)){
+            Drawable drawable = getResources().getDrawable(R.drawable.circle_progress_green);
+            binding.progressbar.setProgressDrawable(drawable);
+            binding.progressbar.setProgress((int) myRandInt);
+        }
+
+        else if(checkingColor.equals(AppConstant.COLOR_PURPLE)){
+            Drawable drawable = getResources().getDrawable(R.drawable.circle_progress_purple);
+            binding.progressbar.setProgressDrawable(drawable);
+            binding.progressbar.setProgress((int) myRandInt);
+        }
+        else {
+            Drawable drawable = getResources().getDrawable(R.drawable.circle_progress_blue);
+            binding.progressbar.setProgressDrawable(drawable);
+            binding.progressbar.setProgress((int) myRandInt);
+        }
+
+
+
+
+
+        ZonedDateTime zdt = ZonedDateTime.of(time, ZoneId.systemDefault());
+        SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM yyyy");
+        long datess = zdt.toInstant().toEpochMilli();
+        Date date = new Date(datess);
+        String dateText = df2.format(date);
+
+        binding.dueDate.setText("Due "+dateText);
+        //binding.dueDate.setText("Due "+time.getDayOfMonth()+"-"+time.getMonthValue()+"-"+time.getYear());
 
         binding.ScheduleNameEdit.setText(name);
-
-//        binding.progressBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                progressSchedule = progressSchedule+10;
-//                binding.progressbar.setProgress(progressSchedule);
-//            }
-//        });
     }
-
-
-
 }
