@@ -122,6 +122,7 @@ public class AllScheduleAdapter extends RecyclerView.Adapter<AllScheduleAdapter.
                 bundle.putString("scheduleName",schedule.getScheduleName());
                 bundle.putString("scheduleDateTime",schedule.getDateTime());
                 bundle.putString("scheduleColor",schedule.getScheduleColor());
+                bundle.putString("startTime",schedule.getStartTime());
                 AppCompatActivity activity = (AppCompatActivity)view.getContext();
                 EditCountdownitems fragment = new EditCountdownitems();
                 fragment.setArguments(bundle);

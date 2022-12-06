@@ -40,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -125,7 +126,16 @@ public class AddScheduleFragment extends Fragment implements View.OnClickListene
 
                 if(ValidData(scheduleName,scheduleDateTime)){
 
-                    Schedule schedule = new Schedule(scheduleName,scheduleDateTime,colorValue);
+                    LocalDateTime calculateTime = LocalDateTime.parse(scheduleDateTime);
+                    long hoursCalculate = ChronoUnit.HOURS.between(LocalDateTime.now(),calculateTime);
+
+                    String startTime = LocalDateTime.now().toString();
+
+
+
+                    Log.d("--duration", "onClick: "+startTime);
+
+                    Schedule schedule = new Schedule(scheduleName,scheduleDateTime,colorValue,startTime);
                     addScheduleViewModel.insertNewSchedule(schedule);
                     sendToHomeFragment();
                 }

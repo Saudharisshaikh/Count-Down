@@ -13,6 +13,7 @@ public class Schedule {
     String scheduleName;
     String dateTime;
     String scheduleColor;
+    String startTime;
 
     public String getScheduleColor() {
         return scheduleColor;
@@ -27,6 +28,29 @@ public class Schedule {
         this.scheduleName = scheduleName;
         this.dateTime = dateTime;
         this.scheduleColor = scheduleColor;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public Schedule(int id, String scheduleName, String dateTime, String scheduleColor, String startTime) {
+        this.id = id;
+        this.scheduleName = scheduleName;
+        this.dateTime = dateTime;
+        this.scheduleColor = scheduleColor;
+        this.startTime = startTime;
+    }
+
+    public Schedule(String scheduleName, String dateTime, String scheduleColor, String startTime) {
+        this.scheduleName = scheduleName;
+        this.dateTime = dateTime;
+        this.scheduleColor = scheduleColor;
+        this.startTime = startTime;
     }
 
     public Schedule(String scheduleName, String dateTime, String scheduleColor) {

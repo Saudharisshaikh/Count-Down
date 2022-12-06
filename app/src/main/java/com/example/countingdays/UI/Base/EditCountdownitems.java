@@ -97,12 +97,14 @@ public class EditCountdownitems extends Fragment {
         int id = 0;
         String name = null;
         String dateTime = null;
+        String startTime = null;
         String scheduleColor = null;
         if(bundle != null){
              id = bundle.getInt("scheduleId");
              name = bundle.getString("scheduleName");
              dateTime = bundle.getString("scheduleDateTime");
              scheduleColor = bundle.getString("scheduleColor");
+             startTime = bundle.getString("startTime");
             Log.d("--BundleHere", "onViewCreated: "+id+" "+dateTime+" "+name);
         }
 
@@ -138,6 +140,7 @@ public class EditCountdownitems extends Fragment {
         String finalName = name;
         String finalDateTime = dateTime;
         String finalColor = scheduleColor;
+        String finalStartTime = startTime;
         binding.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,6 +149,8 @@ public class EditCountdownitems extends Fragment {
                 bundle.putString("scheduleName", finalName);
                 bundle.putString("scheduleDateTime", finalDateTime);
                 bundle.putString("scheduleColor",finalColor);
+                bundle.putString("startTime",finalStartTime);
+
                 EditIndividualFragment fragment = new EditIndividualFragment();
                 fragment.setArguments(bundle);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -157,6 +162,14 @@ public class EditCountdownitems extends Fragment {
 
 
         LocalDateTime time = LocalDateTime.parse(dateTime);
+
+        LocalDateTime startTimeSchedule = LocalDateTime.parse(startTime);
+
+        long newDuration = ChronoUnit.HOURS.between(startTimeSchedule,time);
+
+        long timeGone = ChronoUnit.MINUTES.between(LocalDateTime.now(),startTimeSchedule);
+
+        Log.d("--newDuration ", "onViewCreated: "+newDuration + "    "+timeGone);
 
         long minutesRemain = ChronoUnit.MINUTES.between(LocalDateTime.now(),time);
 
