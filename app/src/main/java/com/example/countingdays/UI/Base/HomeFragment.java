@@ -20,10 +20,18 @@ import com.example.countingdays.Model.Schedule;
 import com.example.countingdays.R;
 import com.example.countingdays.ViewModels.HomeViewModel;
 import com.example.countingdays.databinding.FragmentHomeBinding;
+import com.google.android.ads.nativetemplates.rvadapter.AdmobNativeAdAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +49,9 @@ public class HomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    List<Schedule> pastScheduleList = new ArrayList<>();
+    List<Schedule> scheduleOrderList = new ArrayList<>();
 
     FloatingActionButton floatingActionButton;
 
@@ -97,8 +108,8 @@ public class HomeFragment extends Fragment {
 
 
         //binding.adView.setAdSize(AdSize.BANNER);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        binding.adView.loadAd(adRequest);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        binding.adView.loadAd(adRequest);
         //binding.adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
 
          binding.homeScheduleRv.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -108,10 +119,19 @@ public class HomeFragment extends Fragment {
         homeViewModel.getScheduleList.observe(getViewLifecycleOwner(),
                 schedules -> {
 
+            scheduleCorrectOrder(schedules);
+
                  if(schedules != null){
 
                      AllScheduleAdapter allScheduleAdapter = new AllScheduleAdapter(getActivity(),schedules);
-                     binding.homeScheduleRv.setAdapter(allScheduleAdapter);
+
+                     AdmobNativeAdAdapter admobNativeAdAdapter = AdmobNativeAdAdapter.Builder.with(
+                             requireContext().getResources().getString(R.string.native_id),
+                             allScheduleAdapter,
+                             "medium"
+                     ).adItemInterval(2).build();
+
+                     binding.homeScheduleRv.setAdapter(admobNativeAdAdapter);
                    if(schedules.size()>0){
                      binding.edit.setVisibility(View.VISIBLE);
                    }
@@ -134,17 +154,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        binding.countdowns.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                EditCountdownitems fragment = new EditCountdownitems();
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.addToBackStack(null);
-                ft.replace(R.id.content_frame, fragment);
-                ft.commit();
-            }
-        });
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,5 +169,28 @@ public class HomeFragment extends Fragment {
             }
         });
 
+    }
+
+    private void scheduleCorrectOrder(List<Schedule> schedules) {
+
+        for(Schedule schedule:schedules){
+
+            LocalDateTime dateTime = LocalDateTime.parse(schedule.getDateTime());
+            if(dateTime.isBefore(LocalDateTime.now())){
+
+                pastScheduleList.add(schedule);
+
+            }
+
+        }
+        List<Long> integers = new ArrayList<>();
+        for(int i=0; i<schedules.size(); i++){
+
+
+
+        }
+
+
+        Log.d("--sortList", "scheduleCorrectOrder: "+integers);
     }
 }

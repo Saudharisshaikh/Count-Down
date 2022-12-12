@@ -19,7 +19,7 @@
     <color name="selected_yellow">#FFFC02</color>
     <color name="selected_green">#00FF28</color>
     <color name="selected_purple">#CC00FF</color>
-
+    <color name="general_color">#FDB812</color>
 
 
 </resources>

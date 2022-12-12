@@ -81,7 +81,7 @@ public class AppRepository {
             Log.d("--times", "setAlarm: "+time.getHour()+"   "+ calendar.get(HOUR));
 
             calendar.set(time.getYear(), time.getMonthValue()-1, time.getDayOfMonth()-1);
-            calendar.set(Calendar.HOUR, time.getHour()+12);
+            calendar.set(Calendar.HOUR, time.getHour());
             calendar.set(Calendar.MINUTE, time.getMinute());
             calendar.set(SECOND,0);
             Log.d("--cla", "setAlarm: "+calendar.get(HOUR)+" "+time.getHour()+"  "+calendar.get(DATE)+"  "+calendar.get(MONTH));
@@ -141,7 +141,6 @@ public class AppRepository {
 
         Log.d("--bothTime", "setAlarm: System "+System.currentTimeMillis() + "   calender = "+calendar.getTimeInMillis()+ "  "+schedules.getScheduleName() );
 
-
         AlarmManager   alarmManager = (AlarmManager)context.getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
         intent.setAction("xyz.games.pacman.controller.BROADCAST");
@@ -169,7 +168,6 @@ public class AppRepository {
 
     public void updateSchedule(Schedule schedule){
 
-
         executor = Executors.newSingleThreadExecutor();
         executor.execute(new Runnable() {
             @Override
@@ -177,6 +175,7 @@ public class AppRepository {
 
                 int update = database.schduleDAO().update(schedule);
                 Log.d("--updateSuccessfully", "run: "+update);
+                setAlarm(schedule);
             }
         });
     }
@@ -196,7 +195,6 @@ public class AppRepository {
     }
 
     private void cancelSchedule(Schedule schedule) {
-
 
         AlarmManager   alarmManager = (AlarmManager)context.getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);

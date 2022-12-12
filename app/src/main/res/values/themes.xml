@@ -17,6 +17,38 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="MyTitleTextApperance" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="fontFamily">@font/ubantu</item>
+    </style>
+
+
+    <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/ubantu</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="Splash" parent="Theme.CountingDays">
+        <item name="background">@color/black</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+
+<!--    <style name="AppTheme.AdAttribution">-->
+<!--        <item name="android:textSize">12sp</item>-->
+<!--        <item name="android:textColor">#ffffff</item>-->
+<!--        <item name="android:layout_gravity">left</item>-->
+<!--        <item name="android:background">#ffcc66</item>-->
+<!--        <item name="android:layout_width">wrap_content</item>-->
+<!--        <item name="android:layout_height">wrap_content</item>-->
+<!--        <item name="android:text">@string/ad_attribution</item>-->
+<!--        <item name="android:height">15dp</item>-->
+<!--        <item name="android:width">15dp</item>-->
+<!--    </style>-->
 
     <style name="SCBSwitch" parent="Theme.AppCompat.Light">
         <!-- active thumb & track color (30% transparency) -->
@@ -42,7 +74,6 @@
     </style>
 
 
-
     <style name="DateTimePickerTheme" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="colorAccent">@color/color_accent</item>
         <item name="colorPrimary">@color/color_accent</item>
@@ -52,7 +83,8 @@
 
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/light_grey</item>
-        <item name="colorControlActivated">@color/yellow_rating</item>
+        <item name="colorControlActivated">@color/general_color</item>
+        <item name="android:radius">10dp</item>
     </style>
 
     <style name="Theme.CountingDays.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

@@ -4,8 +4,9 @@
     android:layout_height="90dp"
     android:id="@+id/mainLayout"
     android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/rectangle_home_blue"
+    android:background="@drawable/default_rectangle_item"
     >
 
     <TextView

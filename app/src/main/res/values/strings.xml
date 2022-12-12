@@ -8,6 +8,11 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string name="ADMOB_ADS_UNIT_ID">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="ad_attribution">Ad</string>
+
+    <string name="native_id">ca-app-pub-3940256099942544/2247696110</string>
+
     <string name="menu_open">Open</string>
     <string name="menu_close">Close</string>
 

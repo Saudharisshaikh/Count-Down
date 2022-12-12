@@ -57,7 +57,7 @@ public class AddScheduleFragment extends Fragment implements View.OnClickListene
     FragmentAddScheduleBinding binding;
     private final Calendar calendar = Calendar.getInstance();
     AddScheduleViewModel addScheduleViewModel;
-    String colorValue = AppConstant.COLOR_BLUE;
+    String colorValue = AppConstant.COLOR_DEFAULT;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -130,8 +130,6 @@ public class AddScheduleFragment extends Fragment implements View.OnClickListene
                     long hoursCalculate = ChronoUnit.HOURS.between(LocalDateTime.now(),calculateTime);
 
                     String startTime = LocalDateTime.now().toString();
-
-
 
                     Log.d("--duration", "onClick: "+startTime);
 
@@ -220,7 +218,7 @@ public class AddScheduleFragment extends Fragment implements View.OnClickListene
                                 String preceedeMinute = m < 10 ? "0" : "";
                                 String amOrpm = h < 12 ? "am" :"pm";
 
-                                binding.timeTxt.setText(prceedeHour+i + ":"+preceedeMinute + i1+" "+amOrpm);
+                                binding.timeTxt.setText(prceedeHour+i + ":"+preceedeMinute + i1+":"+amOrpm);
                             } }, hour, minute, false);
 
 
@@ -317,6 +315,8 @@ public class AddScheduleFragment extends Fragment implements View.OnClickListene
                 binding.selectedColors.setVisibility(View.VISIBLE);
                 binding.selectedColors.setBackgroundResource(R.color.color_accent);
                 break;
+
+
         }
 
     }

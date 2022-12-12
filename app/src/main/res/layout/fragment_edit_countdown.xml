@@ -26,13 +26,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/done"
-        android:fontFamily="@font/ubantu"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="30dp"
+        android:fontFamily="@font/ubantu"
         android:gravity="center_horizontal|top"
-        android:text="Counting Days"
+        android:text="Countdowns"
+        android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
 
@@ -41,10 +42,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/done"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="23dp"
         android:src="@drawable/delete_countdown_icon" />
 
 

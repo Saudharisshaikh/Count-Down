@@ -15,15 +15,68 @@ import com.example.countingdays.R;
 public final   class Utils {
 
 
+
+    public static String exactDate(String dateText) {
+        String newDate = "";
+
+        if(dateText.contains("January")){
+
+            newDate = dateText.replace("January","Jan");
+        }
+        else if(dateText.contains("February")){
+
+            newDate = dateText.replace("February","Feb");
+        }
+        else if(dateText.contains("March")){
+
+            newDate = dateText.replace("March","Mar");
+        }
+        else if(dateText.contains("April")){
+
+            newDate = dateText.replace("April","Apr");
+
+        }
+        else if(dateText.contains("May")){
+            newDate = dateText.replace("May","May");
+        }
+        else if(dateText.contains("June")){
+            newDate = dateText.replace("June","Jun");
+        }
+
+        else if(dateText.contains("July")){
+            newDate = dateText.replace("July","Jul");
+        }
+
+        else if(dateText.contains("August")){
+            newDate = dateText.replace("August","Aug");
+        }
+        else if(dateText.contains("September")){
+            newDate = dateText.replace("September","Sep");
+        }
+        else if(dateText.contains("October")){
+            newDate = dateText.replace("October","Oct");
+        }
+        else if(dateText.contains("November")){
+            newDate = dateText.replace("November","Nov");
+        }
+        else if(dateText.contains("December")){
+            newDate = dateText.replace("December","Dec");
+        }
+        return newDate;
+    }
+
+
+
     public static void showSuccessDialog(Context context, WildLambda lambda){
 
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.setContentView(R.layout.delete_dialog);
+        dialog.setContentView(R.layout.delete_dialog_layout);
         Button buttonCancel = dialog.findViewById(R.id.cancel_btn);
         Button buttonOk = dialog.findViewById(R.id.ok_button);
+
 
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {

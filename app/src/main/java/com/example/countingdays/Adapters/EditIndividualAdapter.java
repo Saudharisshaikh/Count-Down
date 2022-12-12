@@ -1,6 +1,7 @@
 package com.example.countingdays.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,9 +23,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.countingdays.Listener.DeleteCountDowns;
 import com.example.countingdays.Model.Schedule;
 import com.example.countingdays.R;
-import com.example.countingdays.UI.Base.EditCountdownitems;
+import com.example.countingdays.ScheduleItemProgressActivity;
 import com.example.countingdays.UI.Base.EditIndividualFragment;
 import com.example.countingdays.Utils.AppConstant;
+import com.example.countingdays.Utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -66,23 +67,13 @@ public class EditIndividualAdapter extends RecyclerView.Adapter<EditIndividualAd
 
         LocalDateTime timeNew = LocalDateTime.parse(schedule.getDateTime());
         ZonedDateTime zdt = ZonedDateTime.of(timeNew, ZoneId.systemDefault());
-        SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM yyyy");
+        SimpleDateFormat df2 = new SimpleDateFormat("MMMM dd, yyyy");
         long datess = zdt.toInstant().toEpochMilli();
         Date date = new Date(datess);
         String dateText = df2.format(date);
-        holder.dateSchedule.setText(dateText);
-        //holder.dateSchedule.setText(String.valueOf(time.getDayOfMonth()+"-"+time.getMonthValue()+"-"+time.getYear()));
-        String dayStrings = duration == 1 || duration == 0? "day Left":"days Left";
-        String prceede = duration < 10 && duration > 0 ? "0":"";
-       // duration = duration < 0 ? 0 : duration;
-
-        if(duration < 0){
-
-            holder.daysRemain.setText("Completed");
-        }
-        else{
-            holder.daysRemain.setText(String.valueOf(prceede+duration+" "+dayStrings));
-        }
+        String newExactDate =  Utils.exactDate(dateText);
+        holder.dateSchedule.setText(newExactDate);
+        holder.scheduleName.setText(schedule.getScheduleName());
 
 
 
@@ -111,6 +102,13 @@ public class EditIndividualAdapter extends RecyclerView.Adapter<EditIndividualAd
             case AppConstant.COLOR_BLUE:
                 holder.constraintLayout.setBackgroundResource(R.drawable.rectangle_home_blue);
                 Log.d("--selectedColor", "onBindViewHolder: accent");
+                break;
+            case AppConstant.COLOR_DEFAULT:
+                holder.constraintLayout.setBackgroundResource(R.drawable.default_rectangle_item);
+                break;
+
+            default:
+                holder.constraintLayout.setBackgroundResource(R.drawable.default_rectangle_item);
                 break;
         }
 
@@ -158,13 +156,14 @@ public class EditIndividualAdapter extends RecyclerView.Adapter<EditIndividualAd
                 bundle.putString("scheduleName",schedule.getScheduleName());
                 bundle.putString("scheduleDateTime",schedule.getDateTime());
                 bundle.putString("scheduleColor",schedule.getScheduleColor());
+                bundle.putString("startTime",schedule.getStartTime());
                 AppCompatActivity activity = (AppCompatActivity)view.getContext();
-                EditCountdownitems fragment = new EditCountdownitems();
-                fragment.setArguments(bundle);
-                FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-                ft.addToBackStack(null);
-                ft.replace(R.id.content_frame, fragment);
-                ft.commit();
+
+
+                Intent intent = new Intent(activity, ScheduleItemProgressActivity.class);
+                intent.putExtra(AppConstant.BUNDLE_KEY,bundle);
+                activity.startActivity(intent);
+
             }
         });
 
@@ -182,18 +181,19 @@ public class EditIndividualAdapter extends RecyclerView.Adapter<EditIndividualAd
 
     public class EditViewHolder extends RecyclerView.ViewHolder {
 
-        TextView daysRemain,dateSchedule;
+        TextView daysRemain,dateSchedule,scheduleName;
         ImageView editIcon;
         CheckBox checkBox;
         ConstraintLayout constraintLayout;
         public EditViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            daysRemain = itemView.findViewById(R.id.days);
+            //daysRemain = itemView.findViewById(R.id.days);
             dateSchedule = itemView.findViewById(R.id.schedule_date);
             editIcon = itemView.findViewById(R.id.edit_countdown_icon);
             checkBox = itemView.findViewById(R.id.check_countdown);
             constraintLayout = itemView.findViewById(R.id.main_edit_layout);
+            scheduleName = itemView.findViewById(R.id.schdule_edit_name);
         }
     }
 }

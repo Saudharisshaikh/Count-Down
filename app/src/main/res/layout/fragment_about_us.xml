@@ -16,14 +16,24 @@
         android:layout_marginTop="50dp"
         >
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/app_logo"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
                 android:text="About Us"
                 android:fontFamily="@font/ubantu"
                 android:layout_gravity="center"
@@ -32,19 +42,20 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:fontFamily="@font/ubantu"
                 android:textStyle="bold"
+                android:layout_gravity="center"
                 android:textAlignment="center"
-                android:text="The Counting Days aims to help users keeps track of important life events and enhance user experiences. With its minmal UI and focus features,it intends to play the role of assistant in your life."
+                android:text="The Counting Days aims to help users\n keeps track of important life events and\n enhance user experiences. With its minmal\n UI and focus features,it intends to play\n the role of assistant in your life."
                 />
 
             <TextView
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -52,7 +63,7 @@
                 android:fontFamily="@font/ubantu"
                 android:textStyle="bold"
                 android:textAlignment="center"
-                android:text="We are open to more ideas, bugs fixes and feature improvements so don't hesitate to get in touch with us."
+                android:text="We are open to more ideas, bugs\n fixes and feature improvements so don't\n hesitate to get in touch with us!"
                 />
 
             <TextView

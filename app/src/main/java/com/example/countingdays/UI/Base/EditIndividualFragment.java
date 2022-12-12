@@ -47,6 +47,7 @@ public class EditIndividualFragment extends Fragment implements View.OnClickList
     String name = null;
     String dateTime = null;
     int id = 0;
+    String startTime = null;
     String colorValue = AppConstant.COLOR_BLUE;
 
     boolean isDateChange = false;
@@ -127,9 +128,9 @@ public class EditIndividualFragment extends Fragment implements View.OnClickList
             name = bundle.getString("scheduleName");
             dateTime = bundle.getString("scheduleDateTime");
             colorValue = bundle.getString("scheduleColor");
-            Log.d("--BundleHere", "onViewCreated: "+id+" "+dateTime+" "+name);
+            startTime = bundle.getString("startTime");
+            Log.d("--BundleHere", "onViewCreated: "+id+" "+dateTime+" "+name+" "+bundle);
         }
-
         LocalDateTime time = changeIntoDate(dateTime);
 
         h = time.getHour();
@@ -160,8 +161,7 @@ public class EditIndividualFragment extends Fragment implements View.OnClickList
         String amOrpm = time.getHour() < 12 ? "am" : "pm";
         binding.title.setText(name);
         binding.dateTxt.setText(String.valueOf(time.getDayOfMonth()+"-"+time.getMonthValue()+"-"+time.getYear()));
-        binding.timeTxt.setText(String.valueOf(time.getHour()+"-"+time.getMinute()+" "+amOrpm));
-
+        binding.timeTxt.setText(String.valueOf(time.getHour()+":"+time.getMinute()+":"+amOrpm));
 
         selectedDateAndTime = dateTime;
 
@@ -232,6 +232,7 @@ public class EditIndividualFragment extends Fragment implements View.OnClickList
 
                 if(isDateChange && !isTimeChange){
 
+                    startTime = LocalDateTime.now().toString();
                     if(mon != 12) {
                         mon++;
                     }
@@ -240,6 +241,7 @@ public class EditIndividualFragment extends Fragment implements View.OnClickList
                 }
                 else if(isTimeChange && isDateChange){
 
+                    startTime = LocalDateTime.now().toString();
                     scheduleDateTime = selectedDateAndTime;
                 }
                 else{
@@ -253,7 +255,7 @@ public class EditIndividualFragment extends Fragment implements View.OnClickList
 
                 if(ValidData(scheduleName,scheduleDateTime)){
 
-                    Schedule schedule = new Schedule(id,scheduleName,scheduleDateTime,colorValue);
+                    Schedule schedule = new Schedule(id,scheduleName,scheduleDateTime,colorValue,startTime);
                     Log.d("--finalEdit", "onClick: "+schedule.getDateTime()+" "+schedule.getScheduleName());
                     editIndividualViewModel.updateSchedule(schedule);
                     sendToHomeFragment();
@@ -356,7 +358,7 @@ public class EditIndividualFragment extends Fragment implements View.OnClickList
                                 String preceedeMinute = m < 10 ? "0" : "";
                                 String amOrpm = h < 12 ? "am" :"pm";
 
-                                binding.timeTxt.setText(prceedeHour+i + ":" +preceedeMinute+i1+" "+amOrpm);
+                                binding.timeTxt.setText(prceedeHour+i + ":" +preceedeMinute+i1+":"+amOrpm);
                             } }, hourValue, minuteValue, false);
 
 

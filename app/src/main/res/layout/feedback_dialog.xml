@@ -43,7 +43,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/contentText"
-                android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 android:fontFamily="@font/ubantu"
                 android:textSize="17sp"
@@ -52,7 +51,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textColor="@android:color/white"
                 android:textAlignment="center"
-                android:text="Thank you for your\nfeedback."
+                android:text="Thank you for your\nfeedback!"
                 />
 
 
@@ -66,11 +65,12 @@
                 android:fontFamily="@font/ubantu"
                 android:layout_marginTop="20dp"
                 android:layout_below="@+id/contentText"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:layout_marginEnd="15dp"
                 android:id="@+id/back_btn"
-                app:cornerRadius="6dp"
-                android:backgroundTint="@color/color_accent"
+                app:cornerRadius="20dp"
+                android:backgroundTint="@color/general_color"
                 />
 
 

@@ -14,6 +14,16 @@ public class AppConstant {
     public static final String COLOR_GREEN = "green";
     public static final String COLOR_PURPLE = "purple";
     public static final String COLOR_BLUE = "blue";
+    public static final String COLOR_DEFAULT = "default";
+
+    public static final String BUNDLE_KEY = "adapterData";
+
+    public static final String BUNDLE_SCHEDULE_ID = "scheduleId";
+    public static final String BUNDLE_SCHEDULE_NAME = "scheduleName";
+    public static final String BUNDLE_SCHEDULE_DATE_TIME = "scheduleDateTime";
+    public static final String BUNDLE_SCHEDULE_COLOR = "scheduleColor";
+    public static final String BUNDLE_SCHEDULE_STARTIME = "startTime";
+
 
 
 

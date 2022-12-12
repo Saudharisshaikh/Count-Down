@@ -10,6 +10,7 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.countingdays.MainActivity;
 import com.example.countingdays.R;
@@ -31,7 +32,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 AppConstant.NOTIFICATION_CHANNEL_ID)
                 .setContentTitle("Counting Days Notification")
                 .setContentText(extra)
-                .setSmallIcon(R.drawable.main_blue_icon)
+                .setColor(ContextCompat.getColor(context, R.color.general_color))
+                .setSmallIcon(R.drawable.app_logo)
                 .setContentIntent(pendingIntent)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

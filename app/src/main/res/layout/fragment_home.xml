@@ -29,14 +29,14 @@
         android:id="@+id/countdowns"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edit"
         android:layout_marginLeft="24dp"
-        android:fontFamily="@font/ubantu"
         android:layout_marginTop="30dp"
+        android:fontFamily="@font/ubantu"
         android:gravity="center_horizontal|top"
-        android:text="Counting Days"
+        android:text="Countdowns"
+        android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
 
@@ -61,22 +61,20 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="60dp"
-        android:src="@drawable/backfloat"
-        app:backgroundTint="@color/color_accent"
+        android:src="@drawable/float_orange"
+        app:backgroundTint="@color/general_color"
         app:fabSize="normal"
         app:useCompatPadding="true" />
 
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
-        android:layout_marginBottom="10dp"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-    </com.google.android.gms.ads.AdView>
+<!--    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+<!--        android:id="@+id/adView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        ads:adSize="BANNER"-->
+<!--        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>-->
 
 </RelativeLayout>

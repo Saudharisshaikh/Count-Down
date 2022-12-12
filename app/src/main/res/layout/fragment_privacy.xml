@@ -20,11 +20,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/app_logo"
+
+                />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Privacy Policy"
                 android:fontFamily="@font/ubantu"
+                android:text="Privacy Policy"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -43,10 +52,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                android:fontFamily="@font/ubantu"
                 android:text="We are open to more ideas, bugs fixes and feature improvements so don't hesitate to get in touch with us."
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                android:fontFamily="@font/ubantu"
                 android:textStyle="bold" />
 
             <TextView

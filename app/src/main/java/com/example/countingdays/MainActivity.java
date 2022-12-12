@@ -30,6 +30,7 @@ import android.widget.Toolbar;
 
 import com.example.countingdays.Model.Schedule;
 import com.example.countingdays.UI.Base.AboutUsFragment;
+import com.example.countingdays.UI.Base.EditIndividualFragment;
 import com.example.countingdays.UI.Base.HomeFragment;
 import com.example.countingdays.UI.Base.PrivacyFragment;
 import com.example.countingdays.UI.Base.RatingFragment;
@@ -66,6 +67,71 @@ public class MainActivity extends AppCompatActivity {
     private Fragment lastFragmentInQueue = null;
 
     MainActivityViewModel mainActivityViewModel;
+    Bundle bundle = null;
+    int id = 0;
+    String nameS = "",dateTimeS = "",colorS = "",startTimeS = "";
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        createNotificationChannel();
+
+        id = getIntent().getIntExtra(AppConstant.BUNDLE_SCHEDULE_ID,0);
+        nameS = getIntent().getStringExtra(AppConstant.BUNDLE_SCHEDULE_NAME);
+        dateTimeS = getIntent().getStringExtra(AppConstant.BUNDLE_SCHEDULE_DATE_TIME);
+        colorS = getIntent().getStringExtra(AppConstant.BUNDLE_SCHEDULE_COLOR);
+        startTimeS = getIntent().getStringExtra(AppConstant.BUNDLE_SCHEDULE_STARTIME);
+
+        mainActivityViewModel = new  ViewModelProvider(this).get(MainActivityViewModel.class);
+        drawerLayout = findViewById(R.id.drawerlayout);
+        navigationView = findViewById(R.id.navigation_view);
+
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.main_toolbar);
+        toolbar.setTitle("");
+        //toolbar.setTitleTextAppearance(this,R.style.MyTitleTextApperance);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.menu_open,R.string.menu_close);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        setSupportActionBar(toolbar);
+
+
+        if(id != 0){
+            EditIndividualFragment fragment = new EditIndividualFragment();
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt(AppConstant.BUNDLE_SCHEDULE_ID,id);
+                bundle1.putString(AppConstant.BUNDLE_SCHEDULE_NAME,nameS);
+                bundle1.putString(AppConstant.BUNDLE_SCHEDULE_DATE_TIME,dateTimeS);
+                bundle1.putString(AppConstant.BUNDLE_SCHEDULE_STARTIME,startTimeS);
+                bundle1.putString(AppConstant.BUNDLE_SCHEDULE_COLOR,colorS);
+
+                fragment.setArguments(bundle1);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, fragment);
+                ft.commit();
+
+        }
+
+        else{
+            setFragment(R.id.home,null);
+        }
+
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                setFragment(item.getItemId(),null);
+
+
+                return true;
+            }
+        });
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -76,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
-
 
     private void createNotificationChannel() {
 
@@ -93,50 +158,6 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(notificationChannel);
         }
     }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
-
-
-         mainActivityViewModel = new  ViewModelProvider(this).get(MainActivityViewModel.class);
-
-
-//         try{
-//             setViewModelData();
-//         }
-//         catch (Exception e){
-//             Log.d("--exceptionModel", "onCreate: ");
-//         }
-
-
-
-        drawerLayout = findViewById(R.id.drawerlayout);
-        navigationView = findViewById(R.id.navigation_view);
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.main_toolbar);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.menu_open,R.string.menu_close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-        setSupportActionBar(toolbar);
-        setFragment(R.id.home,null);
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                setFragment(item.getItemId(),null);
-
-
-                return true;
-            }
-        });
-    }
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void setViewModelData(){
@@ -226,12 +247,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void handleFragmentTransaction(Fragment fragment, Bundle bundle) {
 
-
-
         if (fragment != null && !isActivityStop) {
             if (bundle != null)
                 fragment.setArguments(bundle);
-            lastFragmentInQueue = fragment;
+        //    lastFragmentInQueue = fragment;
             currentFragment = fragment;
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame, fragment);
@@ -243,15 +262,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        isActivityStop = false;
-        if(lastFragmentInQueue != null){
-            handleFragmentTransaction(lastFragmentInQueue,null);
-        }
+//        isActivityStop = false;
+//        if(lastFragmentInQueue != null){
+//            handleFragmentTransaction(lastFragmentInQueue,null);
+//        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        isActivityStop = true;
+//        isActivityStop = true;
     }
 }

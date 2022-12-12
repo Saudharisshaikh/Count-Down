@@ -1,32 +1,31 @@
 package com.example.countingdays.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.countingdays.Model.Schedule;
 import com.example.countingdays.R;
-import com.example.countingdays.UI.Base.EditCountdownitems;
+import com.example.countingdays.ScheduleItemProgressActivity;
 import com.example.countingdays.Utils.AppConstant;
+import com.example.countingdays.Utils.Utils;
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
@@ -51,29 +50,35 @@ public class AllScheduleAdapter extends RecyclerView.Adapter<AllScheduleAdapter.
         return new AllScheduleViewHolder(view);
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull AllScheduleAdapter.AllScheduleViewHolder holder, int position) {
 
 
         Schedule schedule = scheduleList.get(position);
-        LocalDateTime time = changeIntoDate(schedule.getDateTime());
-         long duration = ChronoUnit.DAYS.between(LocalDate.now(), time);
+        //LocalDateTime time = changeIntoDate(schedule.getDateTime());
+        Log.d("--tima", "onBindViewHolder: "+schedule.getDateTime());
+        LocalDateTime time = LocalDateTime.parse(schedule.getDateTime());
+        long duration = ChronoUnit.DAYS.between(LocalDateTime.now(),time);
         holder.scheduleName.setText(schedule.getScheduleName());
         LocalDateTime timeNew = LocalDateTime.parse(schedule.getDateTime());
         ZonedDateTime zdt = ZonedDateTime.of(timeNew, ZoneId.systemDefault());
-        SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM yyyy");
+        SimpleDateFormat df2 = new SimpleDateFormat("MMMM dd, yyyy");
        long datess = zdt.toInstant().toEpochMilli();
         Date date = new Date(datess);
         String dateText = df2.format(date);
-        holder.dateSchedule.setText(dateText);
-        //holder.dateSchedule.setText(String.valueOf(time.getDayOfMonth()+"-"+time.getMonthValue()+"-"+time.getYear()));
-        String dayStrings = duration == 1 || duration == 0? "day Left":"days Left";
+        String newExactDate =  Utils.exactDate(dateText);
+        holder.dateSchedule.setText(newExactDate);
+
+        String dayStrings = duration == 1 || duration == 0? "day left":"days left";
         String prceede = duration < 10 && duration > 0? "0":"";
        // duration = duration < 0 ? 0 : duration;
-
-
-        if(duration < 0){
+        if(duration <= 0){
 
            holder.daysRemain.setText("Completed");
         }
@@ -110,6 +115,14 @@ public class AllScheduleAdapter extends RecyclerView.Adapter<AllScheduleAdapter.
                 holder.constraintLayout.setBackgroundResource(R.drawable.rectangle_home_blue);
                 Log.d("--selectedColor", "onBindViewHolder: accent");
                 break;
+
+            case AppConstant.COLOR_DEFAULT:
+                holder.constraintLayout.setBackgroundResource(R.drawable.default_rectangle_item);
+                break;
+
+            default:
+                holder.constraintLayout.setBackgroundResource(R.drawable.default_rectangle_item);
+                break;
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -124,12 +137,12 @@ public class AllScheduleAdapter extends RecyclerView.Adapter<AllScheduleAdapter.
                 bundle.putString("scheduleColor",schedule.getScheduleColor());
                 bundle.putString("startTime",schedule.getStartTime());
                 AppCompatActivity activity = (AppCompatActivity)view.getContext();
-                EditCountdownitems fragment = new EditCountdownitems();
-                fragment.setArguments(bundle);
-                FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-                ft.addToBackStack(null);
-                ft.replace(R.id.content_frame, fragment);
-                ft.commit();
+                Log.d("--send", "onClick: "+schedule.getStartTime());
+                Intent intent = new Intent(activity,ScheduleItemProgressActivity.class);
+                intent.putExtra(AppConstant.BUNDLE_KEY,bundle);
+                activity.startActivity(intent);
+
+
             }
         });
     }
@@ -160,4 +173,7 @@ public class AllScheduleAdapter extends RecyclerView.Adapter<AllScheduleAdapter.
             constraintLayout = itemView.findViewById(R.id.mainLayout);
         }
     }
+
+
+
 }
