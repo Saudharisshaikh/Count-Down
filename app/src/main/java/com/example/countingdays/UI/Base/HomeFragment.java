@@ -119,7 +119,7 @@ public class HomeFragment extends Fragment {
         homeViewModel.getScheduleList.observe(getViewLifecycleOwner(),
                 schedules -> {
 
-            scheduleCorrectOrder(schedules);
+            //scheduleCorrectOrder(schedules);
 
                  if(schedules != null){
 
